@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carro Forte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ========================================================
+         TELA 1 — DESPACHANTE (Aceitar/Recusar trabalho)
+    ========================================================= -->
+    <div id="screen-dispatcher" class="screen hidden">
+        <div class="overlay"></div>
+        <div class="dispatcher-wrap">
+
+            <!-- Lado esquerdo: avatar do despachante -->
+            <div class="dispatcher-avatar">
+                <div class="avatar-circle">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="22" r="12" fill="#ffc800" opacity="0.9"/>
+                        <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" fill="#ffc800" opacity="0.6"/>
+                        <rect x="22" y="34" width="20" height="14" rx="3" fill="#ffc800" opacity="0.85"/>
+                        <rect x="26" y="48" width="4" height="8" rx="1" fill="#ffc800" opacity="0.7"/>
+                        <rect x="34" y="48" width="4" height="8" rx="1" fill="#ffc800" opacity="0.7"/>
+                    </svg>
+                </div>
+                <div class="avatar-name">Despachante</div>
+                <div class="avatar-badge">Carro Forte S.A.</div>
+            </div>
+
+            <!-- Lado direito: diálogo -->
+            <div class="dispatcher-dialog">
+                <div class="dialog-bubble">
+                    <p class="dialog-text" id="dialogText">
+                        Olá, motorista! Temos uma missão de transporte de valores disponível.<br/><br/>
+                        Você vai coletar dinheiro em vários bancos da cidade e entregar com segurança na <strong>Reserva Federal</strong>.<br/><br/>
+                        Fique atento à velocidade e esteja preparado para possíveis tentativas de assalto.
+                    </p>
+                </div>
+
+                <!-- Info da missão -->
+                <div class="mission-info">
+                    <div class="mi-card">
+                        <span class="mi-icon">💰</span>
+                        <div>
+                            <div class="mi-label">Por entrega</div>
+                            <div class="mi-value" id="mi-pay">$1.500</div>
+                        </div>
+                    </div>
+                    <div class="mi-card">
+                        <span class="mi-icon">⭐</span>
+                        <div>
+                            <div class="mi-label">Bônus total</div>
+                            <div class="mi-value gold" id="mi-bonus">$5.000</div>
+                        </div>
+                    </div>
+                    <div class="mi-card">
+                        <span class="mi-icon">🏦</span>
+                        <div>
+                            <div class="mi-label">Bancos</div>
+                            <div class="mi-value" id="mi-range">3 – 6</div>
+                        </div>
+                    </div>
+                    <div class="mi-card">
+                        <span class="mi-icon">⚡</span>
+                        <div>
+                            <div class="mi-label">Vel. máx</div>
+                            <div class="mi-value" id="mi-speed">80 km/h</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões -->
+                <div class="dialog-buttons">
+                    <button class="dbtn dbtn-accept" onclick="acceptJob()">
+                        <span class="dbtn-icon">✔</span>
+                        Aceitar Missão
+                    </button>
+                    <button class="dbtn dbtn-decline" onclick="declineJob()">
+                        <span class="dbtn-icon">✘</span>
+                        Recusar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         TELA 2 — PEGAR O CAMINHÃO
+    ========================================================= -->
+    <div id="screen-truck" class="screen hidden">
+        <div class="overlay"></div>
+        <div class="truck-wrap">
+            <div class="truck-panel">
+
+                <div class="truck-header">
+                    <div class="truck-icon-wrap">
+                        <svg class="truck-svg" viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="10" width="48" height="22" rx="3" fill="#ffc800"/>
+                            <rect x="50" y="16" width="26" height="16" rx="2" fill="#e6b300"/>
+                            <rect x="52" y="18" width="10" height="8" rx="1" fill="#1a1a2e" opacity="0.7"/>
+                            <circle cx="14" cy="34" r="5" fill="#333"/>
+                            <circle cx="14" cy="34" r="2.5" fill="#888"/>
+                            <circle cx="58" cy="34" r="5" fill="#333"/>
+                            <circle cx="58" cy="34" r="2.5" fill="#888"/>
+                            <circle cx="70" cy="34" r="5" fill="#333"/>
+                            <circle cx="70" cy="34" r="2.5" fill="#888"/>
+                            <rect x="2" y="28" width="8" height="4" rx="1" fill="#ff4" opacity="0.8"/>
+                            <rect x="72" y="28" width="6" height="4" rx="1" fill="#f44" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <h2 class="truck-title">Pegue o Carro Forte</h2>
+                    <p class="truck-subtitle">Seu veículo blindado está pronto</p>
+                </div>
+
+                <div class="truck-specs">
+                    <div class="spec-row">
+                        <span class="spec-label">🚛 Veículo</span>
+                        <span class="spec-val" id="truckName">Stockade</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">🛡️ Blindagem</span>
+                        <span class="spec-val green">Nível 3 — Alta</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">📍 Local</span>
+                        <span class="spec-val" id="truckLocation">Garagem Central</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">⚠️ Velocidade máx</span>
+                        <span class="spec-val orange" id="truckSpeed">80 km/h</span>
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <div class="check-item" id="chk-equip">
+                        <span class="chk-dot loading"></span>
+                        <span>Verificando equipamentos...</span>
+                    </div>
+                    <div class="check-item" id="chk-vehicle">
+                        <span class="chk-dot loading"></span>
+                        <span>Preparando veículo blindado...</span>
+                    </div>
+                    <div class="check-item" id="chk-route">
+                        <span class="chk-dot loading"></span>
+                        <span>Calculando rotas...</span>
+                    </div>
+                </div>
+
+                <button class="truck-btn" id="truckBtn" onclick="spawnTruck()" disabled>
+                    <span class="truck-btn-spinner hidden" id="truckSpinner"></span>
+                    <span id="truckBtnText">Aguardando...</span>
+                </button>
+
+                <p class="truck-esc">Pressione <kbd>ESC</kbd> para cancelar</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         HUD — Progresso da missão (canto inferior esquerdo)
+    ========================================================= -->
+    <div id="hud" class="hidden">
+        <div class="hud-bar">
+            <div class="hud-top">
+                <div class="hud-label">🚛 CARRO FORTE</div>
+                <div class="hud-status" id="hudStatus">Em missão</div>
+            </div>
+
+            <div class="hud-progress-wrap">
+                <div class="hud-progress-track">
+                    <div class="hud-progress-fill" id="hudProgressFill" style="width:0%"></div>
+                </div>
+                <div class="hud-progress-text" id="hudProgressText">0 / 0 bancos</div>
+            </div>
+
+            <div class="hud-cols">
+                <div class="hud-col">
+                    <div class="hud-col-label">Ganhos</div>
+                    <div class="hud-col-value green" id="hudEarnings">$0</div>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-col">
+                    <div class="hud-col-label">Bônus</div>
+                    <div class="hud-col-value gold" id="hudBonus">$5.000</div>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-col">
+                    <div class="hud-col-label">Penalidade</div>
+                    <div class="hud-col-value red" id="hudPenalty">$0</div>
+                </div>
+            </div>
+
+            <!-- Alerta de velocidade (aparece quando viola) -->
+            <div class="hud-speed-alert hidden" id="hudSpeedAlert">
+                ⚡ VELOCIDADE ALTA — penalidade ativa
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         TOAST — Notificações flutuantes
+    ========================================================= -->
+    <div id="toasts"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
